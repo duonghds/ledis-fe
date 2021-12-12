@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal@2.x.x/js/jquery.terminal.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal@2.x.x/css/jquery.terminal.min.css"/>
+    <title>Ledis</title>
+</head>
+<body>
+    <div style="width: 100vw; height: 100vh; background-color: black">
+        <div id="terminal"></div>
+    </div>
+
+</body>
+</html>
+<script>
+    $(function() {
+        $.ajaxSetup({async: false});
+        $('#terminal').terminal(function(command) {
+            console.log(command)
+            let self = this
+            $.ajax({
+                type: 'POST',
+                url: 'https://afternoon-wildwood-94295.herokuapp.com/api/',
+                data: JSON.stringify({"command": command}),
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    self.echo(data.message)
+                },
+            })
+        });
+    });
+</script>

@@ -15,7 +15,6 @@
 </html>
 <script>
     $(function() {
-        $.ajaxSetup({async: false});
         $('#terminal').terminal(function(command) {
             console.log(command)
             let self = this
